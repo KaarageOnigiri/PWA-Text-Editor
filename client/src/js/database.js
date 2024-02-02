@@ -17,7 +17,10 @@ export const putDb = async (content) => {
   console.log('PUT from the database');
   const contentDb = await openDB('text', 1);
   const tx = contentDb = await openDB('text', 'readwrite');
-  
+  const store = tx.objectStore('text');
+  const request = store.put({ id: 1, value: content });
+  const result = await request;
+  console.log('result.value', result);
 }
 
 // TODO: Add logic for a method that gets all the contentDb = await openDB('text', 'readwrite'); from the database
@@ -29,7 +32,7 @@ export const getDb = async () => {
   const request = store.getAll();
   const result = await request;
   console.log('result.value', result);
-  return result;
+  return result.value;
 }
 // console.error('getDb not implemented');
 initdb();
